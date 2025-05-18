@@ -1,0 +1,109 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/fc6087ac36.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <link   href="/assets/main.css" rel="stylesheet" type="text/css" />
+</head>
+
+
+<body>
+    <header>
+        <h1>To do List</h1>
+        <p>Welcome <%= user.username %></p>
+      
+     <div class="filter-container">
+        <select id="filterOption" style="background-color: #45a049 ;">
+            <option value="all">All</option>
+            <option value="completed">Completed<i class="fas fa-trash-alt"></i></option>
+            <option value="uncompleted">Uncompleted<i class="fas fa-check"></i></option>
+            <option value="high-priority">High Priority</option>
+            <option value="medium-priority">Medium Priority</option>
+            <option value="low-priority">Low Priority</option>
+            <option value="category">category</option>
+            <option value="work">work</option>
+            <option value="shopping">shopping</option>
+            <option value="personal">personal</option>
+            <option value="briefing">briefing</option>
+            <option value="other">other</option>
+
+            
+            
+            
+        
+        
+        </select>
+
+        <select id="sortOption" style="margin-left: 10px;">
+            <option value="">Sort By</option>          
+            <option value="high-to-low">High to Low Priority</option>
+            <option value="low-to-high">Low to High Priority</option>
+        </select>
+    </div>
+
+
+    </header>
+
+    
+   <form method="POST" action="/todo">
+    <input type="text" id="todoInput" name="item" placeholder="Add a new todo">
+    <input type="date" id="dateInput" name="dueDate">
+    <select id="priorityInput" name="priority">
+        <option>priority</option>
+        <option value="low">Low</option>
+        <option value="medium">Medium</option>
+        <option value="high">High</option>
+    </select>
+     <select id="category">
+        <option >category</option>
+        <option value="personal">Personal</option>
+        <option value="work">Work</option>
+        <option value="shopping">shopping</option>
+        <option value="briefing">briefing</option>
+        <option value="other">Other</option>
+    </select>
+    <button id="todoButton" type="submit">Add Todo</button>
+
+    </form>
+
+    <div class="todo-container">
+        <ul id="todoList" class="todo-list">
+            <% for(var i=0; i < todos.length; i++){ %>
+                <li class="todo" data-id="<%= todos[i]._id %>">
+                   <span class="todo-item"><%= todos[i].item %></span>
+                      <% if (todos[i].dueDate) { %>
+                     <span class="todo-due-date">(Due: <%= new Date(todos[i].dueDate).toLocaleDateString() %>)</span>
+                      <% } %>
+                     <span class="todo-priority" data-priority="<%= todos[i].priority %>">(<%= todos[i].priority %>)</span> 
+                     <span class="todo-category" data-category="<%= todos[i].category %>">(<%= todos[i].category %>)</span>
+
+                    <button class="complete-btn">
+                        <i class="fas fa-check"></i>
+                    </button>
+                    <button class="trash-btn">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </li>
+            <% } %>
+        </ul>
+    </div>
+    
+        <div class="todo-container">
+            <h4></h4>
+            <div class="logout-section">
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+    
+    
+
+    <script src="assets/main.js"></script>
+</body>
+</html>

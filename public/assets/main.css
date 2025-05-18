@@ -1,0 +1,329 @@
+
+body {
+	font-family: 'Poppins', sans-serif;
+	margin: 0;
+	padding: 0;
+	background-color: #f4f4f4;
+	color: #333;
+}
+
+header {
+	text-align: center;
+	padding: 20px;
+	background-color: #4CAF50;
+	color: white;
+}
+
+form {
+	padding: 20px;
+	text-align: center;
+}
+
+input[type="text"] {
+	padding: 10px;
+	width: 300px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	margin-right: 10px;
+
+}
+
+button {
+	padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	background-color: #4CAF50;
+	color: white;
+	cursor: pointer;
+}
+
+button:hover {
+	background-color: #45a049;
+}
+
+.todo-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 20px;
+}
+
+.todo-list {
+	list-style: none;
+	padding: 0;
+	width: 60%;
+	min-width: 300px;
+
+}
+
+.todo {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px;
+	background-color: #fff;
+	margin-bottom: 10px;
+	border-radius: 5px;
+}
+
+.todo-item {
+	flex: 1;
+	margin-right: 10px;
+	
+}
+
+.complete-btn, .trash-btn {
+	border: none;
+	padding: 5px 10px;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.complete-btn {
+	background-color: #4CAF50;
+	color: white;
+	margin-right: 5px;
+	padding: 1rem;
+}
+
+.trash-btn {
+	background-color: #f44336;
+	color: white;
+	padding: 1rem;
+}
+
+.complete-btn:hover {
+	background-color: #45a049;
+}
+
+.trash-btn:hover {
+	background-color: #d32f2f;
+}
+
+.todo.completed .todo-item {
+	text-decoration: line-through;
+	color: gray;
+}
+
+.filter-container {
+	margin-top: 75px;
+	text-align: left;
+}
+
+select {
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	
+}
+
+select::after{
+	background: #45a049;
+	text-shadow: #45a049;
+}
+
+.todo-priority {
+    border: 1px solid none;
+	font-style:normal;
+	color: #45a049;
+	padding: 2%;
+	
+
+}
+.todo-priority[data-priority='High'] {
+    color: #f44336;
+    font-weight: bold;
+}
+
+.todo-priority[data-priority='Medium'] {
+    color: #ff9800;
+}
+
+.todo-priority[data-priority='Low'] {
+    color: #4CAF50;
+}
+
+#filterOption {
+    background-color: #f0f0f0; 
+    color:white; 
+    border: 1px solid #ccc; 
+    padding: 8px; 
+    border-radius: 4px; 
+    font-size: 1em; 
+    cursor: pointer; 
+}
+
+#sortOption {
+    background-color: #4CAF50;
+    color:white; 
+    border: 1px solid #ccc;
+    padding: 8px; 
+    border-radius: 4px; 
+    font-size: 1em; 
+    margin-left: 10px; 
+    cursor: pointer; 
+}
+
+/* Style the dropdown arrow/selector */
+select {
+
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    appearance:none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5.4%200-10.4%202.3-14.2%206.2L146.2%20217.4c3.9%204.1%2010%204.1%2013.9%200l132.5-138.2c3.7-3.9%208.7-6.2%2014.2-6.2h255.1c5.3%200%2010.3%202.2%2014.2%206.1a17.6%2017.6%200%200%200%2013-5.4z%22/%3E%3C/svg%3E');
+    background-repeat: no-repeat, repeat;
+    background-position: right .7em top 50%, 0 0;
+    background-size: .65em auto, 100%;
+}
+
+select::-ms-expand {
+    display: none; /* Hide the default arrow in IE */
+}
+
+#filterOption:focus,
+#sortOption:focus {
+    outline:black; 
+    border-color: #66afe9; 
+    box-shadow: 0 0 5px rgba(102, 175, 233, .6); 
+	background-color:#4CAF50;
+    color: white; 
+
+}
+
+/* design for due date */
+.todo-due-date {
+    font-size: 0.8em;
+    font-style: italic;
+    color: #777;
+    margin-left: 5px;
+}
+/*design for calender*/
+form input[type="text"],form select{
+	  padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 1em;
+    vertical-align: middle; 
+    height: auto; /
+
+}
+form input[type="date"],
+form select {
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 1em;
+    vertical-align: middle; /* Align items vertically in the middle */
+    height: auto; 
+	background-color: #45a049;
+	color:white;
+
+}
+
+form button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    background-color: #5cb85c; /* Example green */
+    color: white;
+    font-size: 1em;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+form button:hover {
+    background-color: #4cae4c;
+}
+/*logout link*/
+.logout-section a {
+    color: green; /* Change 'green' to your desired color */
+    text-decoration: none; /* Optional: removes the underline */
+}
+
+.logout-section a:hover {
+    text-decoration: underline; /* Optional: adds underline on hover */
+}
+#priorityInput{
+	background-color: #45a049;
+	color: white;
+	
+
+}
+#category{
+	background-color: #45a049;
+	color: white;
+}
+/* adjustments for mobile views*/
+/* For screens smaller than 600px (typical for phones) */
+@media (max-width: 600px) {
+    .todo {
+        flex-direction: column; /* Stack items vertically */
+        align-items: flex-start; /* Align items to the left */
+    }
+
+    .todo-item,
+    .todo-due-date,
+    .todo-priority,
+    .todo-category,
+    .complete-btn,
+    .trash-btn {
+        margin-bottom: 8px; /* Add some spacing between stacked items */
+        display: block; /* Make them take full width */
+        width: 100%;
+        text-align: left;
+		font-size: 1.1em; /* Slightly larger text */
+        margin-bottom: 8px;
+    
+    
+    }
+
+    .complete-btn,
+    .trash-btn {
+        width: auto; /* Adjust width for buttons */
+		font-size: 1.2em; /* Larger icons */
+        padding: 10px; /* More padding for touch */
+        margin-right: 5px;
+    
+    }
+
+    .filter-container,
+    form {
+        flex-direction: column; /* Stack filter and form elements */
+        align-items: stretch; /* Make them take full width */
+    }
+
+    .filter-container select,
+    form input[type="text"],
+    form input[type="date"],
+    form select,
+    form button {
+        margin-bottom: 12px;
+        width: 100%;
+		font-size: 1.1em;
+        padding: 10px;
+    
+    }
+
+	.filter-container {
+        display: flex; /* Use flexbox to make children the same width */
+        flex-direction: column; /* Stack them on mobile */
+        align-items: stretch; /* Make them take full width */
+        gap: 10px; /* Space between filter and sort */
+		margin-bottom: 15px; 
+    }
+	.sort-container {
+        display: flex; /* Use flexbox to make children the same width */
+        flex-direction: column; /* Stack them on mobile */
+        align-items: stretch; /* Make them take full width */
+        gap: 10px; /* Space between filter and sort */
+    }
+
+
+
+   
+}
+

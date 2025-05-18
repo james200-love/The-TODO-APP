@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link href="/assets/register.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="register-container">
+        <h2>Register</h2>
+    <!--this is for error display when registering-->
+
+        <% if (session.registerError) { %>
+            <p style="color: red;"><%= session.registerError %></p>
+            <% delete session.registerError; %> <%# Clear the error message from session after displaying %>
+        <% } %>
+
+        <form id="registerForm" action="/register" method="POST">
+            <div class="form-group">
+                <label for="username">username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+
+             <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="text" id="email" name="email" required>
+                  <p id="passwordError" style="color: red; margin-top: 5px;"></p>
+            
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+<!--This p element holds password error messages-->
+                 <p id="passwordError" style="color: red; margin-top: 5px;"></p>
+                
+          </div>
+              <div class="form-group">
+                <label for="confirmPassword">confirm Password:</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required>
+<!--This p element holds password error messages-->
+                 <p id="confirmPasswordError" style="color: red; margin-top: 5px;"></p>
+                
+            </div>
+    
+            <button type="submit">Register</button>
+        </form>
+        <div class="login-link">
+            Already have an account? <a href="/login">Log in here</a>
+        </div>
+    </div>
+<!--Script for password criteria(secure passwords)-->
+   <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const registerForm = document.getElementById('registerForm');
+        const passwordInput = document.getElementById('password');
+        const emailInput = document.getElementById('email');
+        const confirmPasswordInput = document.getElementById('confirmPassword');
+        const passwordError = document.getElementById('passwordError');
+        const confirmPasswordError = document.getElementById('confirmPasswordError');
+         const emailError = document.getElementById('emailError'); // Add email error element
+
+        function validatePassword(password) {
+            if (password.length < 8) return "Password must be at least 8 characters long.";
+            if (!/[a-zA-Z]/.test(password)) return "Password must include letters.";
+            if (!/[A-Z]/.test(password)) return "Password must include a capital letter.";
+            if (!/[0-9]/.test(password)) return "Password must include a number.";
+            return ""; // Password is valid
+        }
+          function validateEmail(email) {
+            // Basic email format validation using a regular expression
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                return "Please enter a valid email address.";
+            }
+            return "";
+        }
+
+        registerForm.addEventListener('submit', function(event) {
+            let hasErrors = false;
+            const password = passwordInput.value;
+            const passwordValidationError = validatePassword(password);
+
+            if (passwordValidationError) {
+                passwordError.textContent = passwordValidationError;
+                hasErrors = true;
+            } else {
+                passwordError.textContent = "";
+            }
+
+            if (passwordInput.value !== confirmPasswordInput.value) {
+                confirmPasswordError.textContent = "Passwords do not match.";
+                hasErrors = true;
+            } else {
+                confirmPasswordError.textContent = "";
+            }
+
+            if (hasErrors) {
+                event.preventDefault(); //conditionally  Prevents form submission if there are errors
+            }
+        });
+    
+    });
+
+</script>
+</body>
+</html>
