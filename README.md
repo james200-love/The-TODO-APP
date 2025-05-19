@@ -5,7 +5,7 @@ Technologies used include:Node.js, Express, EJS , MongoDB , JavaScript, CSS ,JQu
 ***Setup instructions***
 install Node.js ("https://nodejs.org/en") download it
 ***Clone the repository**
-git clone (https://github.com/james200-love/The-TODO-APP/edit/main)
+git clone (https://github.com/james200-love/The-TODO-APP)
 cd todo-app
 ***Install dependencies***
 npm install 
