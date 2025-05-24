@@ -4,7 +4,8 @@
 $(document).ready(function(){
 
     $('form').on('submit', function(e){
-
+    
+        
         console.log("Form submitted!"); 
         
         e.preventDefault();
@@ -38,11 +39,13 @@ $(document).ready(function(){
 
         var todo = { item: newTodoText,  priority: newTodoPriority, dueDate: newTodoDueDate, category: newTodoCategory };
 
+   
         $.ajax({
-            type: 'POST',
+            //  ajax call ...
+             type: 'POST',
             url: '/todo',
             data: todo,
-            success: function(data){
+            success:  function(data){
                 location.reload();
             },
             error: function(xhr, status, error){
@@ -50,26 +53,43 @@ $(document).ready(function(){
                 alert("Failed to add todo. Please try again.");
             }
         });
+            
+        
+     });
+    
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+    $(document).on('click', '.trash-btn', function(){
+        //  delete handler ...
+         var button = $(this);
+    var todoId = button.closest('li').data('id');
+    $.ajax({
+        type: 'DELETE',
+        url: '/todo/' + todoId,
+        success: function(data){
+            button.closest('li').remove();
+        },
+        error: function(xhr, status, error){
+            console.error("Error deleting todo:", error);
+            alert("Failed to delete todo. Please try again.");
+        }
+      });
     });
 
-    $('.trash-btn').on('click', function(){
-        var button = $(this);
-        var todoId = button.closest('li').data('id');
-        $.ajax({
-            type: 'DELETE',
-            url: '/todo/' + todoId,
-            success: function(data){
-                button.closest('li').remove();
-            },
-            error: function(xhr, status, error){
-                console.error("Error deleting todo:", error);
-                alert("Failed to delete todo. Please try again.");
-            }
-        });
+
+/////////////////////////////////////////////////////////////////////////////////////
+    $(document).on('click', '.complete-btn', function(){
+        
+         console.log("Complete button was clicked!"); // this line for testing OR TROUBLESHOOTING
+    var todoId = $(this).closest('li').data('id');
+    $(this).closest('li').toggleClass('completed');
+    
     });
 
+   
+/////////////////////////////////////////////////////////////////////////////////////////
     $('#filterOption').on('change', function(){
-    console.log("Filter option changed!");
+        
+         console.log("Filter option changed!");
     const selectedFilter = $(this).val();
     const todoItems = $('#todoList li');
 
@@ -123,72 +143,12 @@ $(document).ready(function(){
     });
 });
 
+    
 
-
-   /* $('#filterOption').on('change', function(){
-        console.log("Complete button was clicked!")// this is for troubleshooting in  browser console
-        console.log("Filter option changed!");// this is also for truobleshooting in browser console
-        const selectedFilter = $(this).val();
-        const todoItems = $('#todoList li');
-        console.log("Number of todo items found:", todoItems.length); // Check the count
-
-        todoItems.each(function(){
-            const $this = $(this); // Cache the jQuery object
-            const isCompleted = $this.hasClass('completed');
-            const priority = $this.find('.todo-priority').data('priority');
-            const category = $this.find('.todo-category').data('category');
-            console.log("Is item completed?", isCompleted); // Check this value
-            console.log("Selected filter:", selectedFilter); // ADD THIS LINE
-            console.log("Item priority:", priority);       // ADD THIS LINE
-        
-
-            switch (selectedFilter) {
-                case 'all':
-                    $this.css('display', 'flex');
-                    break;
-                case 'completed':
-                    if (isCompleted) {
-                        $this.css('display', 'flex');
-                    } else {
-                        $this.css('display', 'none');
-                    }
-                    break;
-                case 'uncompleted':
-                    if (!isCompleted) {
-                        $this.css('display', 'flex');
-                    } else {
-                        $this.css('display', 'none');
-                    }
-                    break;
-                case 'high-priority':
-                    if (priority === 'high') {
-                        $this.css('display', 'flex');
-                    } else {
-                        $this.css('display', 'none');
-                    }
-                    break;
-                case 'medium-priority':
-                    if (priority === 'medium') {
-                        $this.css('display', 'flex');
-                    } else {
-                        $this.css('display', 'none');
-                    }
-                    break;
-                case 'low-priority':
-                    if (priority === 'low') {
-                        $this.css('display', 'flex');
-                    } else {
-                        $this.css('display', 'none');
-                    }
-                    break;
-                }
-        });
-    });*/
-
-   
-//fUNCTION TO HANDLE SORTING CONTAINER
+//////////////////////////////////////////////////////////////////////////////////////////////////////
     $('#sortOption').on('change', function(){
-        console.log("Sort option changed!"); // Add this line
+        // ... your sort handler ...
+         console.log("Sort option changed!"); // Add this line
         const selectedSort = $(this).val();
         const todoList = $('#todoList');
         const todoItems = todoList.children('li').get();
@@ -211,26 +171,58 @@ $(document).ready(function(){
             } else {
                 return 0;
             }
-        });
+        
 
         $.each(todoItems, function(index, item) {
             todoList.append(item);
         });
+     
     });
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+    const dateInput = document.getElementById('dateInput');
+    if (dateInput) {
+        // ... your datepicker logic ...
+            const today = new Date();
+            const year = today.getFullYear();
+            let month = today.getMonth() + 1; // Month is 0-indexed
+            let day = today.getDate();
 
-// FUNCTION TO HANDLE COMPLETE BUTTON
-    $('.complete-btn').on('click', function(){
-        console.log("Complete button was clicked!"); // this line for testing OR TROUBLESHOOTING
-        var todoId = $(this).closest('li').data('id');
-        $(this).closest('li').toggleClass('completed');
-    });
+            // Pad month and day with leading zero if needed
+            month = month < 10 ? '0' + month : month;
+            day = day < 10 ? '0' + day : day;
 
-    //$('#todoList').on('click', '.complete-btn', function(){
-       // var todoId = $(this).closest('li').data('id');
-       // $(this).closest('li').toggleClass('completed');
-   // });
+            const todayFormatted = `${year}-${month}-${day}`;
+            dateInput.min = todayFormatted;
+    }
+///////////////////////////////////////////////////////////////////////////////////////////////////
+    function success(data) {
+        console.log("AJAX success!", data);
+        const newTodoHtml = `
+            <li data-id="${data._id}">
+                <span class="todo-item">${data.item}</span>
+                <span class="todo-due-date">(Due: ${new Date(data.dueDate).toLocaleDateString()})</span>
+                <span class="todo-priority" data-priority="${data.priority}">(${data.priority})</span>
+                <span class="todo-category" data-category="${data.category}">(${data.category})</span>
+                <button class="complete-btn">
+                    <i class="fas fa-check"></i>
+                </button>
+                <button class="trash-btn">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+            </li>
+        `;
+        $('#todoList').append(newTodoHtml);
+        $('form input').val('');
+        $('#dateInput').val('');
+        $('#category').val('personal');
+        $('#priorityInput').val('low');
+    }
 });
 
+});
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
 //function for calender , client not to select previous dates
     $(document).ready(function() {
         const dateInput = document.getElementById('dateInput');
