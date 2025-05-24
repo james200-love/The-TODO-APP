@@ -27,7 +27,7 @@ var todoSchema = new mongoose.Schema({
     priority: String, //  priority field
     dueDate: Date, // date field
     category: String, 
-    username: String // 
+    user: String // 
 });
 var Todo = mongoose.model('Todo', todoSchema);
 
