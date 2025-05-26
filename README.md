@@ -9,6 +9,7 @@ git clone (https://github.com/james200-love/The-TODO-APP)
 
 ***Install dependencies***
 npm install 
+npm init to create a json file
 npm install express
 npm install ejs
 npm install body-parser
