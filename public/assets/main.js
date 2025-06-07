@@ -239,6 +239,5 @@ $(document).ready(function(){
             const todayFormatted = `${year}-${month}-${day}`;
             dateInput.min = todayFormatted;
         }
-
-    
     });
+
